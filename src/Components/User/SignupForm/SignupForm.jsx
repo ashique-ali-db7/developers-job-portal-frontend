@@ -94,7 +94,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               className='signupbutton'
-              style={{backgroundColor:"#C84B31"}}
+              style={{backgroundColor:"#3FA796"}}
             >
               SIGN Up
             </Button>

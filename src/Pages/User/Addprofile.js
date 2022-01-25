@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
-import HomePageTop from '../../Components/User/HomePageTop/HomePageTop';
+import AddProfileForm from '../../Components/User/AddProfileForm/AddProfileForm';
 import Navbars from '../../Components/User/Navbars/Navbars';
 
-
-function Home() {
+function Addprofile() {
   return <Fragment>
 <Navbars LoggedIn={true}/>
 <Container>
-<HomePageTop/>
+<AddProfileForm/>
 </Container>
-  </Fragment>;
+
+</Fragment>;
 }
 
-export default Home;
+export default Addprofile;
