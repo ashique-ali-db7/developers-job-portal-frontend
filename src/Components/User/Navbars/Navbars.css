@@ -1,0 +1,15 @@
+.dropdown{
+    color:aliceblue
+}
+.navbar{
+    background-color: #C84B31;
+    position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
+.vertical {
+    border-left: 1px solid black;
+    height: 40px;
+
+    
+}
