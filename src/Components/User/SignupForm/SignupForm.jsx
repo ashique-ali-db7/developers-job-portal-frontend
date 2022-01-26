@@ -12,23 +12,80 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import githublogo from './githubimage.png'
-import './SignupForm.css'
-
-
+import githublogo from './githubimage.png';
+import './SignupForm.css';
+import {useState,useEffect} from 'react';
+import { useNavigate} from "react-router-dom";
+const axios = require('axios');
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+  const navigation = useNavigate();
+  const [isSubmit,setSubmit] = useState(false)
+
+  const initialValues = {name:"",email:"",password:""}
+  const [formValues,setFormValues] = useState(initialValues);
+
+  const [formErrors,setFormErrors] = useState({})
+
+  const handleChange=(e)=>{
+
+    const {name,value} = e.target
+    setFormValues({...formValues,[name]:value})
+    console.log(formValues);
+    }
+
+    const handleSubmit=(e)=>{
+      e.preventDefault()
+      setFormErrors(validate(formValues))
+      setSubmit(true)
+    }
+
+    const validate = (values) =>{
+      const errors = {}
+ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(!values.name){
+        errors.name = "This field is required";
+      }
+      if(!values.email){
+        errors.email = "This field is required";
+      }
+     
+      if(!values.email){
+        errors.password = "This field is required";
+      }
+      return errors
+    }
+
+
+useEffect(()=>{
+
+
+  if(Object.keys(formErrors).length === 0 && isSubmit){
+try{
+  const config = {
+    headers:{
+      "Content-type":"application/json"
+    }
+  }
+
+  axios.post('/signup',formValues,config)
+
+setSubmit(false)
+navigation('/otp')
+}catch{
+  console.log("hi");
+  setSubmit(false)
+}
+
+  }
+
+
+},[isSubmit])
+
+
 
   return (
      
@@ -38,7 +95,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -48,7 +105,7 @@ export default function SignUp() {
          
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <Button
-              type="submit"
+             
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -61,12 +118,14 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="User name"
-              name="email"
-              autoComplete="email"
+              id="name"
+              label="Name"
+              name="name"
+              onChange={handleChange}
               autoFocus
+              
             />
+           <p style={{color:"red"}}>{formErrors.name}</p> 
             <TextField
               margin="normal"
               required
@@ -75,19 +134,23 @@ export default function SignUp() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={handleChange}
               autoFocus
             />
+          <p style={{color:"red"}}>{formErrors.email}</p> 
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
               label="Password"
+              onChange={handleChange}
               type="password"
               id="password"
               autoComplete="current-password"
             />
           
+           <p style={{color:"red"}}> {formErrors.password}</p>
             <Button
               type="submit"
               fullWidth
@@ -103,7 +166,9 @@ export default function SignUp() {
                
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link style={{cursor:"pointer",textDecoration:"none"}} onClick={()=>{
+navigation("/signin")
+                }} variant="body2">
                   {"Already have an account?"}
                 </Link>
               </Grid>

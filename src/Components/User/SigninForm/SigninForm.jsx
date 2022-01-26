@@ -13,11 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import githublogo2 from './githubimage.png'
-
+import { useNavigate} from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SigninForm() {
+  const navigation = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -96,7 +97,9 @@ export default function SigninForm() {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link onClick={()=>{
+                  navigation("/signup")
+                }} style={{cursor:"pointer",textDecoration:"none"}} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
