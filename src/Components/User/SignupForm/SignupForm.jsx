@@ -27,7 +27,7 @@ export default function SignUp() {
 
   const initialValues = {name:"",email:"",password:""}
   const [formValues,setFormValues] = useState(initialValues);
-
+   const [emailError,setEmailError] = useState("")
   const [formErrors,setFormErrors] = useState({})
 
   const handleChange=(e)=>{
@@ -53,17 +53,18 @@ export default function SignUp() {
         errors.email = "This field is required";
       }
      
-      if(!values.email){
+      if(!values.password){
         errors.password = "This field is required";
       }
       return errors
     }
 
 
-useEffect(()=>{
+useEffect(async()=>{
 
 
   if(Object.keys(formErrors).length === 0 && isSubmit){
+    console.log("min");
 try{
   const config = {
     headers:{
@@ -71,12 +72,16 @@ try{
     }
   }
 
-  axios.post('/signup',formValues,config)
+let {data} =await axios.post('/signup',formValues,config)
+ 
+  setSubmit(false)
+  navigation('/otp')
 
-setSubmit(false)
-navigation('/otp')
-}catch{
-  console.log("hi");
+
+}
+catch(error){
+ 
+  setEmailError(error.response.data.message)
   setSubmit(false)
 }
 
@@ -125,7 +130,7 @@ navigation('/otp')
               autoFocus
               
             />
-           <p style={{color:"red"}}>{formErrors.name}</p> 
+         {formErrors.name &&  <p style={{color:"red"}}>{formErrors.name}</p> }
             <TextField
               margin="normal"
               required
@@ -137,7 +142,8 @@ navigation('/otp')
               onChange={handleChange}
               autoFocus
             />
-          <p style={{color:"red"}}>{formErrors.email}</p> 
+            {emailError && <p style={{color:"red"}}>{emailError}</p>}
+       {formErrors.email &&  <p style={{color:"red"}}>{formErrors.email}</p> }
             <TextField
               margin="normal"
               required

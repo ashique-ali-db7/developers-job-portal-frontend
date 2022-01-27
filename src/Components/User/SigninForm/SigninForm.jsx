@@ -14,20 +14,85 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import githublogo2 from './githubimage.png'
 import { useNavigate} from "react-router-dom";
-
+import {useState,useEffect} from 'react';
+const axios = require('axios');
 const theme = createTheme();
 
 export default function SigninForm() {
   const navigation = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const initialValues = {email:"",password:""};
+  const [formErrors,setFormErrors] = useState({});
+  const [formValues,setFormValues] = useState(initialValues);
+  const [isSubmit,setSubmit] = useState(false);
+
+  const handleChange = (e) =>{
+    const {name,value} = e.target
+    setFormValues({...formValues,[name]:value})
+    console.log(formValues);
+  }
+
+
+
+
+
+
+  const handleSubmit = (e) => {
+   
+    e.preventDefault()
+    setFormErrors(validate(formValues))
+    setSubmit(true)
+
   };
+
+
+
+  const validate = (values) =>{
+    const errors = {}
+const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!values.password){
+      errors.password = "This field is required";
+    }
+    if(!values.email){
+      errors.email = "This field is required";
+    }
+   
+   
+    return errors
+  }
+
+
+  useEffect(async()=>{
+
+
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+      console.log("min");
+  try{
+    const config = {
+      headers:{
+        "Content-type":"application/json"
+      }
+    }
+  
+  let {data} =await axios.post('/signin',formValues,config)
+  console.log(data);
+ 
+   
+   setSubmit(false)
+    navigation('/')
+  
+  
+  }
+  catch(error){
+   
+    console.log(error.response.data.message);
+
+    setSubmit(false)
+  }
+  
+    }
+   
+  
+  },[isSubmit])
 
   return (
     <ThemeProvider theme={theme}>
@@ -51,8 +116,10 @@ export default function SigninForm() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={handleChange}
               autoFocus
             />
+            <span style={{color:"red"}}>{formErrors.email }</span> 
             <TextField
               margin="normal"
               required
@@ -60,9 +127,11 @@ export default function SigninForm() {
               name="password"
               label="Password"
               type="password"
+              onChange={handleChange}
               id="password"
               autoComplete="current-password"
             />
+                 <span style={{color:"red"}}>{formErrors.password }</span> 
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
