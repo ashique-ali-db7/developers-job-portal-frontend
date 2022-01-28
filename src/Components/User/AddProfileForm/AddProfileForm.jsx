@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AddProfileForm.css'
-import {Form,Row,Col} from "react-bootstrap"
+import {Form,Row,Col} from "react-bootstrap";
+import {useSelector,useDispatch} from "react-redux"//To acces state 
 function AddProfileForm() {
+
+ 
+    const username = useSelector(state => state.user.user) //in global using useSelector hook accessing color stata
+
+
+
+ 
   return <div className='formcontainer me-auto ms-auto'>
+    <h1></h1>
  <Form className='formclass'>
 
  <Row>
- <Col lg={6} md={6} xs={12}><Form.Group className="mb-5" controlId="exampleForm.ControlInput1">
+ <Col lg={6} md={6} xs={12}><Form.Group className="mb-5"  controlId="exampleForm.ControlInput1">
   
-    <Form.Control type="text" placeholder="Name" />
+    <Form.Control type="text" placeholder="Name"  />
   </Form.Group>
   </Col>
   <Col lg={6} md={6} xs={12}><Form.Group className="mb-5" controlId="exampleForm.ControlInput1">

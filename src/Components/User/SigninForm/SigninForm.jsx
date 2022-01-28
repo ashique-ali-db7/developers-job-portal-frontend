@@ -15,6 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import githublogo2 from './githubimage.png'
 import { useNavigate} from "react-router-dom";
 import {useState,useEffect} from 'react';
+import './SigninForm.css'
+import LoginGithub from 'react-login-github';
+import { SocialIcon } from 'react-social-icons';
 const axios = require('axios');
 const theme = createTheme();
 
@@ -24,11 +27,22 @@ export default function SigninForm() {
   const [formErrors,setFormErrors] = useState({});
   const [formValues,setFormValues] = useState(initialValues);
   const [isSubmit,setSubmit] = useState(false);
+  const [invalidEmail,setInvalidEmail] = useState("");
+
+
+  const onSuccess = (response) => {
+
+    console.log(response);
+
+  }
+  const onFailure = (response) =>{console.error(response);} 
+
+  
 
   const handleChange = (e) =>{
     const {name,value} = e.target
     setFormValues({...formValues,[name]:value})
-    console.log(formValues);
+    
   }
 
 
@@ -74,8 +88,9 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
     }
   
   let {data} =await axios.post('/signin',formValues,config)
-  console.log(data);
  
+  localStorage.setItem("token",JSON.stringify(data.token));
+  localStorage.setItem("user",JSON.stringify(data.user));
    
    setSubmit(false)
     navigation('/')
@@ -83,8 +98,8 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
   
   }
   catch(error){
+    setInvalidEmail(error.response.data.message)
    
-    console.log(error.response.data.message);
 
     setSubmit(false)
   }
@@ -106,7 +121,7 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
             alignItems: 'center',
           }}
         >
-         
+          <span style={{color:"red"}}> {invalidEmail} </span> 
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -120,6 +135,8 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
               autoFocus
             />
             <span style={{color:"red"}}>{formErrors.email }</span> 
+           
+          
             <TextField
               margin="normal"
               required
@@ -149,7 +166,7 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
           </Box>
         </Box>
       <hr />
-      <Button
+      {/* <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -158,7 +175,15 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
               style={{backgroundColor:"black"}} 
             >
     <img src={githublogo2} alt="" className='githubLogo  me-auto'/> <span className='me-auto'>Continue with github</span> 
-            </Button>
+            </Button> */}
+
+            <LoginGithub className="githubutton"   clientId="ca2dcbee0004aa8fae1e"
+            
+    onSuccess={onSuccess}
+    onFailure={onFailure}
+  
+    ><img src={githublogo2} alt="" className='githubLogo  me-auto'/> <span className='me-auto mt-2 mb-1'>CONTINUE WITH GITHUB</span> </LoginGithub>
+
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">
