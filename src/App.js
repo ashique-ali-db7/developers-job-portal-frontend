@@ -8,28 +8,28 @@ import Addprofile from './Pages/User/Addprofile';
 import EmailOtp from './Pages/User/EmailOtp';
 import { useEffect } from 'react';
 
-import {useSelector,useDispatch} from "react-redux"//To acces state 
-import {update_user} from './Redux/user/userSlice' //importing action
+import {useSelector,useDispatch} from "react-redux"///To acces state. 
+import {update_user} from './Redux/user/userSlice' ///importing action.
 
 function App() {
 let navigation = useNavigate();
 
   const dispatch = useDispatch()
-useEffect(() => {
-
-  let user = localStorage.getItem("user");
-  user = JSON.parse(user)
+ 
 
 
+  useEffect(() => {
 
-  dispatch(update_user({
-    userDetails:user
-  }))
+  
+    let user = localStorage.getItem("user");
+    user = JSON.parse(user);
+    dispatch(update_user({
+      userDetails:user
+    }));
 
 
-        
   if(user){
-   
+
   }else{
     navigation('/signin')
   }

@@ -9,7 +9,6 @@ function Addprofile() {
 <Container>
 <AddProfileForm/>
 </Container>
-
 </Fragment>;
 }
 

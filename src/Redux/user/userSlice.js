@@ -5,6 +5,7 @@ export const userSlice = createSlice({
     initialState:{},
     reducers:{
         update_user:(state,action) =>{
+           
             
             state.user = action.payload.userDetails // you can see that it is mutating but immer library handle it
 
