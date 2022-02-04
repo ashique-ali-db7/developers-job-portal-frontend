@@ -30,6 +30,25 @@ export const googleAuth = async (email) => {
   }
 };
 
+
+export async function emailGithubVerification(email,githubUserName,resultFunction){
+ let {data} =await axios.get('https://api.github.com/search/users?q='+githubUserName+'in:'+email)
+
+ let result;
+ if(data.items.length>0){
+ result = true;
+ resultFunction(result);
+ }else{
+   result = false;
+   resultFunction(result);
+ }
+}  
+
+export function profileForm(data){
+   axios.post('/profilePost',data,config)
+}
+
+
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
 
 // google clientid : 680809948788-884h20uqor8gnboufpl40vdfi5rflo02.apps.googleusercontent.com

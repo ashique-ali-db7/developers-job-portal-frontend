@@ -6,10 +6,11 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { getCroppedImg } from "../../Utils/Cropper";
 import { useSelector, useDispatch } from "react-redux"; //To acces state
+import { emailGithubVerification,profileForm } from "../../../Api/UserApi";
 
 function AddProfileForm() {
   const user = useSelector((state) => state.user.user); //in global using useSelector hook accessing color state
-
+  const [githubError, setGithubError] = useState("");
   const [skillSet, setSkillSet] = useState("");
   const [allSkill, setAllSkill] = useState([]);
   const [profileImage, setProfileImage] = useState(null);
@@ -33,7 +34,19 @@ function AddProfileForm() {
   });
 
   const onSubmit = (data) => {
-    console.log(data.proof[0]);
+    emailGithubVerification(user.email,data.gitHubUsername,(result)=>{
+     if(result){
+       
+       data.profileImage = profileResulToBackend;
+       data.verificationImage = verificationResulToBackend;
+       data.skills = allSkill
+       profileForm(data);
+       
+     }else{
+      setGithubError("Your github user name not match with the gmail")
+     }
+
+    })
   };
 
   const skills = (e) => {
@@ -276,6 +289,7 @@ reader.onloadend = function() {
               ) : (
                 ""
               )}
+              {githubError&&<span className="errorMessage mb-1">{githubError}</span>}
             </Form.Group>
           </Col>
         </Row>

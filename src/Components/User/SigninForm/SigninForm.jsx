@@ -21,7 +21,7 @@ import GoogleLogin from "react-google-login";
 
 import { useSelector, useDispatch } from "react-redux"; ///To acces state.
 import { update_user } from "../../../Redux/user/userSlice"; ///importing action.
-import { githubVerification, googleAuth } from "../../../Api/Index";
+import { githubVerification, googleAuth } from "../../../Api/UserApi";
 
 const axios = require("axios");
 const theme = createTheme();
