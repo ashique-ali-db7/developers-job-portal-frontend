@@ -6,7 +6,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { getCroppedImg } from "../../Utils/Cropper";
 import { useSelector, useDispatch } from "react-redux"; //To acces state
-import { emailGithubVerification,profileForm } from "../../../Api/UserApi";
+import { emailGithubVerification, profileForm } from "../../../Api/UserApi";
 
 function AddProfileForm() {
   const user = useSelector((state) => state.user.user); //in global using useSelector hook accessing color state
@@ -22,8 +22,8 @@ function AddProfileForm() {
   const [profileResultShow, setProfileResultShow] = useState(null);
   const [profileResulToBackend, setProfileResulToBackend] = useState(null);
   const [verificationResultShow, setVerificationResultShow] = useState(null);
-  const [verificationResulToBackend, setVerificationResulToBackend] = useState(null);
-
+  const [verificationResulToBackend, setVerificationResulToBackend] =
+    useState(null);
 
   const {
     register,
@@ -34,19 +34,35 @@ function AddProfileForm() {
   });
 
   const onSubmit = (data) => {
-    emailGithubVerification(user.email,data.gitHubUsername,(result)=>{
-     if(result){
-       
-       data.profileImage = profileResulToBackend;
-       data.verificationImage = verificationResulToBackend;
-       data.skills = allSkill
-       profileForm(data);
-       
-     }else{
-      setGithubError("Your github user name not match with the gmail")
-     }
-
-    })
+    emailGithubVerification(user.email, data.gitHubUsername, (result) => {
+      if (result) {
+        console.log(data);
+      
+        let formData = new FormData();
+        formData.append("profileResulToBackend", profileResulToBackend);
+        formData.append(
+          "verificationResulToBackend",
+          verificationResulToBackend
+        );
+        formData.append("skills", allSkill);
+        formData.append("amount", data.amount);
+        formData.append("description", data.description);
+        formData.append("domain", data.domain);
+        formData.append("education", data.education);
+        formData.append("gitHubUsername", data.gitHubUsername);
+        formData.append("hoursperweek", data.gitHubUsername);
+        formData.append("language", data.language);
+        formData.append("name", data.name);
+        formData.append("phone", data.phone);
+        formData.append("state", data.state);
+        formData.append("university", data.university);
+    console.log("ds")
+    console.log(formData)
+        profileForm(formData);
+      } else {
+        setGithubError("Your github user name not match with the gmail");
+      }
+    });
   };
 
   const skills = (e) => {
@@ -63,42 +79,41 @@ function AddProfileForm() {
 
   const handleProfilePhotoChange = (e) => {
     setProfileImage(URL.createObjectURL(e.target.files[0]));
-    setVerification(false)
+    setVerification(false);
     setShow(true);
   };
 
-  const handleVerificationPhotoChange = (e) =>{
-    setVerificationImage(URL.createObjectURL(e.target.files[0]))
-    setVerification(true)
+  const handleVerificationPhotoChange = (e) => {
+    setVerificationImage(URL.createObjectURL(e.target.files[0]));
+    setVerification(true);
     setShow(true);
-  }
+  };
 
   const croppingFunction = async () => {
     let userId = user._id;
-if(verification){
-userId = user._id+"verification"
-}
+    if (verification) {
+      userId = user._id + "verification";
+    }
 
     let result = await getCroppedImg(image, crop, userId);
 
-    if(verification){
-      setVerificationResulToBackend(result)
-    }else{
+    if (verification) {
+      setVerificationResulToBackend(result);
+    } else {
       setProfileResulToBackend(result);
     }
-  
+
     var reader = new FileReader();
-reader.readAsDataURL(result); 
-reader.onloadend = function() {
-  var base64data = reader.result;  
-               
-  if(verification){
-    setVerificationResultShow(base64data)
-  }else{
-    setProfileResultShow(base64data);
-  }
- 
-}
+    reader.readAsDataURL(result);
+    reader.onloadend = function () {
+      var base64data = reader.result;
+
+      if (verification) {
+        setVerificationResultShow(base64data);
+      } else {
+        setProfileResultShow(base64data);
+      }
+    };
     setShow(false);
   };
 
@@ -289,7 +304,9 @@ reader.onloadend = function() {
               ) : (
                 ""
               )}
-              {githubError&&<span className="errorMessage mb-1">{githubError}</span>}
+              {githubError && (
+                <span className="errorMessage mb-1">{githubError}</span>
+              )}
             </Form.Group>
           </Col>
         </Row>
@@ -326,6 +343,7 @@ reader.onloadend = function() {
           {allSkill.map((element) => {
             return (
               <div
+                 key={new Date()}
                 style={{
                   backgroundColor: "#3FA796",
                   display: "inline-block",
@@ -362,9 +380,13 @@ reader.onloadend = function() {
 
         <Row>
           <Col lg={6} md={6} xs={12}>
-          {profileResultShow && (
+            {profileResultShow && (
               <div className="mb-2 ">
-                <img src={profileResultShow} alt="" className="img-fluid crop-img" />
+                <img
+                  src={profileResultShow}
+                  alt=""
+                  className="img-fluid crop-img"
+                />
               </div>
             )}
 
@@ -376,14 +398,16 @@ reader.onloadend = function() {
                 onChange={handleProfilePhotoChange}
               />
             </Form.Group>
-           
           </Col>
 
           <Col lg={6} md={6} xs={12}>
-          
-          {verificationResultShow && (
+            {verificationResultShow && (
               <div className="mb-2 crop-img">
-                <img src={verificationResultShow} alt="" className="img-fluid crop-img" />
+                <img
+                  src={verificationResultShow}
+                  alt=""
+                  className="img-fluid crop-img"
+                />
               </div>
             )}
 
@@ -396,7 +420,6 @@ reader.onloadend = function() {
                 accept="image/*"
                 onChange={handleVerificationPhotoChange}
               />
-             
             </Form.Group>
           </Col>
         </Row>
@@ -424,7 +447,7 @@ reader.onloadend = function() {
               crop={crop}
               onChange={setCrop}
             />
-          ):(
+          ) : (
             <ReactCrop
               src={profileImage}
               onImageLoaded={setImage}

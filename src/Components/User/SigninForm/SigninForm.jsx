@@ -38,22 +38,24 @@ export default function SigninForm() {
 
   const onSuccess = (response) => {
     let email = { email: response.profileObj.email };
-    googleAuth(email).then((data) => {
-      localStorage.setItem("token", JSON.stringify(data.token));
-      localStorage.setItem("user", JSON.stringify(data.user));
-      let user = localStorage.getItem("user");
-      
-      user = JSON.parse(user);
-      dispatch(
-        update_user({
-          userDetails: user,
-        })
-      );
+    googleAuth(email)
+      .then((data) => {
+        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("user", JSON.stringify(data.user));
+        let user = localStorage.getItem("user");
 
-      navigation("/");
-    }).catch(()=>{
-      setGmailError(true)
-    })
+        user = JSON.parse(user);
+        dispatch(
+          update_user({
+            userDetails: user,
+          })
+        );
+
+        navigation("/");
+      })
+      .catch(() => {
+        setGmailError(true);
+      });
   };
   const onFailure = (response) => {
     console.error(response);
@@ -128,8 +130,10 @@ export default function SigninForm() {
           }}
         >
           <span style={{ color: "red" }}> {invalidEmail} </span>
-          
-         {gmailError&&<span style={{ color: "red" }}>You should signup first</span>} 
+
+          {gmailError && (
+            <span style={{ color: "red" }}>You should signup first</span>
+          )}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -177,7 +181,6 @@ export default function SigninForm() {
           </Box>
         </Box>
         <hr />
-    
 
         <GoogleLogin
           className="githubutton"

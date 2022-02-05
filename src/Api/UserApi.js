@@ -1,6 +1,4 @@
-
 import axios from "axios";
-
 
 const config = {
   headers: {
@@ -8,46 +6,47 @@ const config = {
   },
 };
 
-
-
 export const githubVerification = (code, config) =>
   axios.post("/github", code, config);
-
-
 
 export const googleAuth = async (email) => {
   try {
     let { data } = await axios.post("/googleVerification", email, config);
-    return new Promise(async(resolve,reject)=>{
-      resolve(data)
-    })
-
+    return new Promise(async (resolve, reject) => {
+      resolve(data);
+    });
   } catch (error) {
     console.log(error.response.data.message);
-    return new Promise(async(resolve,reject)=>{
+    return new Promise(async (resolve, reject) => {
       reject();
-    })
+    });
   }
 };
 
+export async function emailGithubVerification(
+  email,
+  githubUserName,
+  resultFunction
+) {
+  let { data } = await axios.get(
+    "https://api.github.com/search/users?q=" + githubUserName + "in:" + email
+  );
 
-export async function emailGithubVerification(email,githubUserName,resultFunction){
- let {data} =await axios.get('https://api.github.com/search/users?q='+githubUserName+'in:'+email)
-
- let result;
- if(data.items.length>0){
- result = true;
- resultFunction(result);
- }else{
-   result = false;
-   resultFunction(result);
- }
-}  
-
-export function profileForm(data){
-   axios.post('/profilePost',data,config)
+  let result;
+  if (data.items.length > 0) {
+    result = true;
+    resultFunction(result);
+  } else {
+    result = false;
+    resultFunction(result);
+  }
 }
 
+export function profileForm(formData) {
+console.log("111")
+  console.log(formData);
+  axios.post("/profilePost", formData, config);
+}
 
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
 

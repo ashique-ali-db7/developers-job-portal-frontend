@@ -1,31 +1,28 @@
-
-.formcontainer{
-    background-color: #fff;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    padding: 5%;
-    width: 70%;
-    
+.formcontainer {
+  background-color: #fff;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 5%;
+  width: 70%;
 }
-.formclass{
-    background-color: #fff;
+.formclass {
+  background-color: #fff;
 }
-.flexwrap-container{
-     display: flex;
+.flexwrap-container {
+  display: flex;
   flex-wrap: wrap;
 }
-.errorMessage{
-    color: red;
+.errorMessage {
+  color: red;
 }
-.submitBtn{
-    background-color: #3FA796;
-    border: none;
-    width: 50%;
+.submitBtn {
+  background-color: #3fa796;
+  border: none;
+  width: 50%;
 }
-.submitBtnDiv{
- 
-    text-align: center;
+.submitBtnDiv {
+  text-align: center;
 }
-.crop-img{
-    height: 250px;
+.crop-img {
+  height: 250px;
 }
