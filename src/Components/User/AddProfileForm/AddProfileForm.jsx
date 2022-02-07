@@ -7,6 +7,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import { getCroppedImg } from "../../Utils/Cropper";
 import { useSelector, useDispatch } from "react-redux"; //To acces state
 import { emailGithubVerification, profileForm } from "../../../Api/UserApi";
+import { profileImageUpload } from "../../../Api/UserApi";
 
 function AddProfileForm() {
   const user = useSelector((state) => state.user.user); //in global using useSelector hook accessing color state
@@ -32,18 +33,15 @@ function AddProfileForm() {
   } = useForm({
     defaultValues: {},
   });
-
+  let i = 1;
   const onSubmit = (data) => {
     emailGithubVerification(user.email, data.gitHubUsername, (result) => {
       if (result) {
         console.log(data);
-      
+        let formData2 = new FormData();
         let formData = new FormData();
+        // formData.append("profileResulToBackend", profileResulToBackend);
         formData.append("profileResulToBackend", profileResulToBackend);
-        formData.append(
-          "verificationResulToBackend",
-          verificationResulToBackend
-        );
         formData.append("skills", allSkill);
         formData.append("amount", data.amount);
         formData.append("description", data.description);
@@ -52,13 +50,19 @@ function AddProfileForm() {
         formData.append("gitHubUsername", data.gitHubUsername);
         formData.append("hoursperweek", data.gitHubUsername);
         formData.append("language", data.language);
-        formData.append("name", data.name);
+        // formData.append("name", data.name);
         formData.append("phone", data.phone);
         formData.append("state", data.state);
         formData.append("university", data.university);
-    console.log("ds")
-    console.log(formData)
+        formData.append("userId", user._id);
         profileForm(formData);
+
+        formData2.append(
+          "verificationResulToBackend",
+          verificationResulToBackend
+        );
+        formData2.append("userId", user._id);
+        profileImageUpload(formData2);
       } else {
         setGithubError("Your github user name not match with the gmail");
       }
@@ -343,7 +347,7 @@ function AddProfileForm() {
           {allSkill.map((element) => {
             return (
               <div
-                 key={new Date()}
+                key={i++}
                 style={{
                   backgroundColor: "#3FA796",
                   display: "inline-block",
@@ -423,6 +427,9 @@ function AddProfileForm() {
             </Form.Group>
           </Col>
         </Row>
+
+
+
         <div className=" submitBtnDiv">
           <Button
             variant="primary"

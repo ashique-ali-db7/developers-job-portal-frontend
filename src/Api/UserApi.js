@@ -43,9 +43,11 @@ export async function emailGithubVerification(
 }
 
 export function profileForm(formData) {
-console.log("111")
-  console.log(formData);
   axios.post("/profilePost", formData, config);
+}
+
+export function profileImageUpload(formData2) {
+  axios.post("/verificationImageUpload", formData2, config);
 }
 
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
