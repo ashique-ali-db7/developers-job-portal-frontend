@@ -1,28 +1,26 @@
-
-.otpcontiner{
-    width: 32%;
-    background-color: white;
-    border: 1px solid rgb(197, 192, 192);
-    padding: 3%;
-    margin-top: 8%;
-    text-align: center;
+.otp-continer {
+  width: 32%;
+  background-color: white;
+  border: 1px solid rgb(197, 192, 192);
+  padding: 3%;
+  margin-top: 8%;
+  text-align: center;
 }
 
-.otpcontiner h6{
-    margin-bottom: 8%;
-    color:#3FA796;
-    font-size: 1rem;
-    
+.otp-continer h6 {
+  margin-bottom: 8%;
+  color: #3fa796;
+  font-size: 1rem;
 }
 
-.otpcontiner p{
-    font-size: 0.7rem;
-    color: grey;
+.otp-continer p {
+  font-size: 0.7rem;
+  color: grey;
 }
-.otpcontiner button{
-    width: 100%;
-    padding: 2%;
-    background-color:  #3FA796;
-    border: none;
-    color: white;
+.otp-continer button {
+  width: 100%;
+  padding: 2%;
+  background-color: #3fa796;
+  border: none;
+  color: white;
 }

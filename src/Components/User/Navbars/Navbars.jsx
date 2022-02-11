@@ -23,7 +23,6 @@ function Navbars(props) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         {headerLinks && (
-         
           <Nav className="ms-auto">
             <Nav.Link href="#home" className="">
               Jobs
@@ -39,7 +38,7 @@ function Navbars(props) {
             </Nav.Link>
 
             <NavDropdown
-              className="dropdown"
+              className="drop-down"
               title={
                 <span>
                   <FaUserCircle />
@@ -69,16 +68,16 @@ function Navbars(props) {
               </NavDropdown.Item>
             </NavDropdown>
 
-
             <Nav.Link href="#link" className="">
-              <span className="border-left" style={{ fontSize: "0.8rem" }}>Support</span>{" "}
+              <span className="border-left" style={{ fontSize: "0.8rem" }}>
+                Support
+              </span>{" "}
             </Nav.Link>
 
             <Nav.Link href="#link" className="">
               <span style={{ fontSize: "0.8rem" }}>Try premium</span>{" "}
             </Nav.Link>
           </Nav>
-        
         )}
       </Navbar.Collapse>
     </Navbar>

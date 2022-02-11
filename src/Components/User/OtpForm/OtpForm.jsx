@@ -77,7 +77,7 @@ function OtpForm() {
   }, [resend]);
 
   return (
-    <div className="otpcontiner me-auto ms-auto">
+    <div className="otp-continer me-auto ms-auto">
       <form onSubmit={handleSubmit}>
         <h6>OTP VERIFICATION</h6>
         <p style={{ fontSize: "0.8rem" }}>

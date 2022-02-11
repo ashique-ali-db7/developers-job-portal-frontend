@@ -1,16 +1,14 @@
-.dropdown{
-    color:aliceblue
+.drop-down {
+  color: aliceblue;
 }
-.navbar{
-    background-color: white;
-    color: #3FA796;
-    position: -webkit-sticky; /* Safari */
-	position: sticky;
-	top: 0;
+.navbar {
+  background-color: white;
+  color: #3fa796;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
 }
 .vertical {
-    border-left: 1px solid black;
-    height: 40px;
-
-    
+  border-left: 1px solid black;
+  height: 40px;
 }

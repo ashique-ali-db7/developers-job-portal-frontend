@@ -16,7 +16,6 @@ export const googleAuth = async (email) => {
       resolve(data);
     });
   } catch (error) {
-    console.log(error.response.data.message);
     return new Promise(async (resolve, reject) => {
       reject();
     });
@@ -46,8 +45,18 @@ export function profileForm(formData) {
   axios.post("/profilePost", formData, config);
 }
 
-export function profileImageUpload(formData2) {
-  axios.post("/verificationImageUpload", formData2, config);
+export async function verificationImageUpload(formData2, resultFunction) {
+  let result; 
+  let { data } = await axios.post(
+    "/verificationImageUpload",
+    formData2,
+    config
+  );
+
+  console.log("ivade ethi");
+  console.log(data);
+  result = data;
+  resultFunction(result);
 }
 
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
