@@ -101,18 +101,19 @@ export default function SigninForm() {
         localStorage.setItem("user", JSON.stringify(data.user));
         let user = localStorage.getItem("user");
         user = JSON.parse(user);
+       
         dispatch(
           update_user({
             userDetails: user,
           })
         );
 
-        // setSubmit(false)
+       
         navigation("/");
       } catch (error) {
         setInvalidEmail(error.response.data.message);
 
-        // setSubmit(false)
+  
       }
     }
   }, [isSubmit]);
@@ -165,10 +166,7 @@ export default function SigninForm() {
               autoComplete="current-password"
             />
             <span style={{ color: "red" }}>{formErrors.password}</span>
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+          
             <Button
               type="submit"
               fullWidth

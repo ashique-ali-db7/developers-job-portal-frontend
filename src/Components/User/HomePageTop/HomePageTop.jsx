@@ -2,8 +2,10 @@ import React from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import "./HomePageTop.css";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function HomePageTop() {
+  const user = useSelector((state)=>state.user.user);
   const navigation = useNavigate();
   const moveToProfile = () => {
     navigation("/addprofile");
@@ -33,7 +35,8 @@ function HomePageTop() {
         className="ms-4 "
         onClick={moveToProfile}
       >
-        ADD PROFILE
+      {user?.phone ?<span>EDIT PROFILE</span>:<span>ADD PROFILE</span>} 
+      
       </Button>
 
       <Dropdown className="ms-4">

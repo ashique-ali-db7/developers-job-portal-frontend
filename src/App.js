@@ -9,6 +9,8 @@ import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux"; ///To acces state.
 import { update_user } from "./Redux/user/userSlice"; ///importing action.
+import AdminSignin from "./Pages/Admin/AdminSignin";
+import Dashboard from "./Pages/Admin/Dashboard";
 
 function App() {
   let navigation = useNavigate();
@@ -38,6 +40,8 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/addprofile" element={<Addprofile />} />
         <Route path="/otp" element={<EmailOtp />} />
+        <Route path="/admin" element={<AdminSignin />} />
+        <Route path="/admin/dashboard" element={<Dashboard/>} />
       </Routes>
     </div>
   );

@@ -27,8 +27,7 @@ function AddProfileForm() {
   const [profileResultShow, setProfileResultShow] = useState(null);
   const [profileResulToBackend, setProfileResulToBackend] = useState(null);
   const [verificationResultShow, setVerificationResultShow] = useState(null);
-  const [verificationResulToBackend, setVerificationResulToBackend] =
-    useState(null);
+  const [verificationResulToBackend, setVerificationResulToBackend] = useState(null);
 
   const {
     register,
@@ -41,10 +40,11 @@ function AddProfileForm() {
   const onSubmit = (data) => {
     emailGithubVerification(user.email, data.gitHubUsername, (result) => {
       if (result) {
-        let formData2 = new FormData();
+   
         let formData = new FormData();
-        // formData.append("profileResulToBackend", profileResulToBackend);
+      
         formData.append("profileResulToBackend", profileResulToBackend);
+        formData.append("profileResulToBackend", verificationResulToBackend);
         formData.append("skills", allSkill);
         formData.append("amount", data.amount);
         formData.append("description", data.description);
@@ -53,37 +53,27 @@ function AddProfileForm() {
         formData.append("gitHubUsername", data.gitHubUsername);
         formData.append("hoursperweek", data.hoursperweek);
         formData.append("language", data.language);
-
+       
         formData.append("phone", data.phone);
         formData.append("state", data.state);
         formData.append("university", data.university);
         formData.append("userId", user._id);
-        profileForm(formData);
-
-        formData2.append(
-          "verificationResulToBackend",
-          verificationResulToBackend
-        );
-        formData2.append("userId", user._id);
-        verificationImageUpload(formData2, (response) => {
+        profileForm(formData, (response) => {
           localStorage.removeItem("user");
-
           localStorage.setItem("user", JSON.stringify(response));
           let user = localStorage.getItem("user");
-
           user = JSON.parse(user);
-          console.log("klkkllkkllk");
-          console.log(user);
           dispatch(
             update_user({
               userDetails: user,
             })
           );
+          //setAllSkill([]);
 
           navigation("/");
         });
       } else {
-        setGithubError("Your github user name not match with the gmail");
+        setGithubError("Github user not found");
       }
     });
   };
@@ -96,11 +86,11 @@ function AddProfileForm() {
   const skillSubmit = (e) => {
     e.preventDefault();
     setAllSkill([...allSkill, skillSet]);
-    console.log(allSkill);
   };
   const handleClose = () => setShow(false);
 
   const handleProfilePhotoChange = (e) => {
+  
     setProfileImage(URL.createObjectURL(e.target.files[0]));
     setVerification(false);
     setShow(true);
@@ -140,27 +130,27 @@ function AddProfileForm() {
     setShow(false);
   };
 
+
+  useEffect(() => {
+
+  user?.skills && setAllSkill([user?.skills]);
+  user?.profileImage && setProfileResultShow(user?.profileImage);
+  user?.verificationImage && setVerificationResultShow(user?.verificationImage)
+ 
+    
+  }, [])
+
+
   return (
     <div className="form-container me-auto ms-auto">
       <h3 className="mb-2">Complete your profile</h3>
       <Form className="form-class" onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          {/* <Col lg={6} md={6} xs={12}>
-            <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-              <Form.Control
-                type="text"
-                className="mb-1"
-                placeholder="Name"
-                {...register("name", { required: true })}
-              />
-              {errors.name && (
-                <span className="errorMessage">This field is required</span>
-              )}
-            </Form.Group>
-          </Col> */}
+       
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.domain}
                 type="text"
                 placeholder="Domain"
                 {...register("domain", { required: "This field is required" })}
@@ -173,6 +163,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.state}
                 type="text"
                 placeholder="State"
                 {...register("state", { required: true })}
@@ -188,6 +179,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+               defaultValue={user?.phone}
                 type="number"
                 placeholder="Phone number"
                 {...register("phone", {
@@ -212,6 +204,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.amount}
                 type="number"
                 placeholder="Amount/hour"
                 {...register("amount", {
@@ -234,6 +227,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.hoursperweek}
                 type="number"
                 placeholder="Hours per week"
                 {...register("hoursperweek", {
@@ -255,6 +249,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.language}
                 type="text"
                 placeholder="Language"
                 {...register("language", {
@@ -276,6 +271,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.education}
                 type="text"
                 placeholder="Education qualification"
                 {...register("education", {
@@ -294,6 +290,7 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
+                defaultValue={user?.university}
                 type="text"
                 placeholder="University"
                 {...register("university", {
@@ -362,6 +359,7 @@ function AddProfileForm() {
           <Form.Group className="mb-2" controlId="exampleForm.ControlTextarea1">
             <Form.Label>About your self</Form.Label>
             <Form.Control
+              defaultValue={user?.description}
               as="textarea"
               rows={5}
               {...register("description", {
@@ -400,7 +398,7 @@ function AddProfileForm() {
             </Form.Group>
           </Col>
 
-          <Col lg={6} md={6} xs={12}>
+       {user?.description?  "" :<Col lg={6} md={6} xs={12}>
             {verificationResultShow && (
               <div className="mb-2 crop-img">
                 <img
@@ -419,7 +417,7 @@ function AddProfileForm() {
                 onChange={handleVerificationPhotoChange}
               />
             </Form.Group>
-          </Col>
+          </Col>}
         </Row>
         <Row>
           <Col lg={6} md={6} xs={12}>
@@ -428,6 +426,7 @@ function AddProfileForm() {
               controlId="exampleForm.ControlInput1"
             >
               <Form.Control
+               defaultValue={user?.gitHubUsername}
                 type="text"
                 placeholder="Github user name"
                 {...register("gitHubUsername", {

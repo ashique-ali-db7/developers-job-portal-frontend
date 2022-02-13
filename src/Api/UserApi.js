@@ -30,19 +30,27 @@ export async function emailGithubVerification(
   let { data } = await axios.get(
     "https://api.github.com/search/users?q=" + githubUserName + "in:" + email
   );
-
+  console.log(data);
+console.log(githubUserName)
   let result;
   if (data.items.length > 0) {
+    console.log("true")
     result = true;
     resultFunction(result);
   } else {
+    console.log("false");
     result = false;
     resultFunction(result);
   }
 }
 
-export function profileForm(formData) {
-  axios.post("/profilePost", formData, config);
+export function profileForm(formData,resultFunction) {
+  axios.post("/profilePost", formData, config).then((result)=>{
+let {data} = result;
+resultFunction(data);
+
+  });
+
 }
 
 export async function verificationImageUpload(formData2, resultFunction) {
