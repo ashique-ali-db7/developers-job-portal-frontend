@@ -9,7 +9,7 @@
 
 .otp-continer h6 {
   margin-bottom: 8%;
-  color: #3fa796;
+  color: var(--main-blue);
   font-size: 1rem;
 }
 
@@ -20,7 +20,7 @@
 .otp-continer button {
   width: 100%;
   padding: 2%;
-  background-color: #3fa796;
+  background-color: var(--main-blue);
   border: none;
   color: white;
 }

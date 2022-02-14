@@ -10,6 +10,7 @@ import { emailGithubVerification, profileForm } from "../../../Api/UserApi";
 import { verificationImageUpload } from "../../../Api/UserApi";
 import { useNavigate } from "react-router-dom";
 import { update_user } from "../../../Redux/user/userSlice";
+import FormMessages from "../../../FormMessages/FormMessages"
 
 function AddProfileForm() {
   const navigation = useNavigate();
@@ -27,7 +28,8 @@ function AddProfileForm() {
   const [profileResultShow, setProfileResultShow] = useState(null);
   const [profileResulToBackend, setProfileResulToBackend] = useState(null);
   const [verificationResultShow, setVerificationResultShow] = useState(null);
-  const [verificationResulToBackend, setVerificationResulToBackend] = useState(null);
+  const [verificationResulToBackend, setVerificationResulToBackend] =
+    useState(null);
 
   const {
     register,
@@ -40,9 +42,8 @@ function AddProfileForm() {
   const onSubmit = (data) => {
     emailGithubVerification(user.email, data.gitHubUsername, (result) => {
       if (result) {
-   
         let formData = new FormData();
-      
+
         formData.append("profileResulToBackend", profileResulToBackend);
         formData.append("profileResulToBackend", verificationResulToBackend);
         formData.append("skills", allSkill);
@@ -53,7 +54,6 @@ function AddProfileForm() {
         formData.append("gitHubUsername", data.gitHubUsername);
         formData.append("hoursperweek", data.hoursperweek);
         formData.append("language", data.language);
-       
         formData.append("phone", data.phone);
         formData.append("state", data.state);
         formData.append("university", data.university);
@@ -68,7 +68,6 @@ function AddProfileForm() {
               userDetails: user,
             })
           );
-          //setAllSkill([]);
 
           navigation("/");
         });
@@ -90,7 +89,6 @@ function AddProfileForm() {
   const handleClose = () => setShow(false);
 
   const handleProfilePhotoChange = (e) => {
-  
     setProfileImage(URL.createObjectURL(e.target.files[0]));
     setVerification(false);
     setShow(true);
@@ -130,33 +128,28 @@ function AddProfileForm() {
     setShow(false);
   };
 
-
   useEffect(() => {
-
-  user?.skills && setAllSkill([user?.skills]);
-  user?.profileImage && setProfileResultShow(user?.profileImage);
-  user?.verificationImage && setVerificationResultShow(user?.verificationImage)
- 
-    
-  }, [])
-
+    user?.skills && setAllSkill([user?.skills]);
+    user?.profileImage && setProfileResultShow(user?.profileImage);
+    user?.verificationImage &&
+      setVerificationResultShow(user?.verificationImage);
+  }, []);
 
   return (
-    <div className="form-container me-auto ms-auto">
-      <h3 className="mb-2">Complete your profile</h3>
+    <div className="form-container me-auto ms-auto shadow">
+      <h3 className="mb-3 completeh3">Complete your profile</h3>
       <Form className="form-class" onSubmit={handleSubmit(onSubmit)}>
         <Row>
-       
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
                 defaultValue={user?.domain}
                 type="text"
                 placeholder="Domain"
-                {...register("domain", { required: "This field is required" })}
+                {...register("domain", { required: FormMessages.required })}
               />
               {errors.domain && (
-                <span className="error-message">This field is required</span>
+                <span className="error-message">{FormMessages.required}</span>
               )}
             </Form.Group>
           </Col>
@@ -169,7 +162,7 @@ function AddProfileForm() {
                 {...register("state", { required: true })}
               />
               {errors.state && (
-                <span className="error-message">This field is required</span>
+                <span className="error-message">{FormMessages.required}</span>
               )}
             </Form.Group>
           </Col>
@@ -179,11 +172,11 @@ function AddProfileForm() {
           <Col lg={6} md={6} xs={12}>
             <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
               <Form.Control
-               defaultValue={user?.phone}
+                defaultValue={user?.phone}
                 type="number"
                 placeholder="Phone number"
                 {...register("phone", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                   maxLength: { value: 10, message: "Enter only 10 digits" },
                   minLength: {
                     value: 10,
@@ -208,7 +201,7 @@ function AddProfileForm() {
                 type="number"
                 placeholder="Amount/hour"
                 {...register("amount", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                   min: { value: 100, message: "minimum 100 rupees required" },
                 })}
               />
@@ -231,7 +224,7 @@ function AddProfileForm() {
                 type="number"
                 placeholder="Hours per week"
                 {...register("hoursperweek", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                   max: { value: 168, message: "Maximum 168 hours" },
                   min: { value: 20, message: "minimum 20 hours required" },
                 })}
@@ -253,7 +246,7 @@ function AddProfileForm() {
                 type="text"
                 placeholder="Language"
                 {...register("language", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                 })}
               />
               {errors.language ? (
@@ -275,7 +268,7 @@ function AddProfileForm() {
                 type="text"
                 placeholder="Education qualification"
                 {...register("education", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                 })}
               />
               {errors.education ? (
@@ -294,7 +287,7 @@ function AddProfileForm() {
                 type="text"
                 placeholder="University"
                 {...register("university", {
-                  required: "This field is required",
+                  required: FormMessages.required,
                 })}
               />
               {errors.university ? (
@@ -343,7 +336,7 @@ function AddProfileForm() {
                 key={i++}
                 className="me-2 mt-1 "
                 style={{
-                  backgroundColor: "#3FA796",
+                  backgroundColor: "var(--main-blue)",
                   display: "inline-block",
                   padding: "1%",
                   color: "#fff",
@@ -363,7 +356,7 @@ function AddProfileForm() {
               as="textarea"
               rows={5}
               {...register("description", {
-                required: "This field is required",
+                required: FormMessages.required,
               })}
             />
             {errors.description ? (
@@ -398,26 +391,30 @@ function AddProfileForm() {
             </Form.Group>
           </Col>
 
-       {user?.description?  "" :<Col lg={6} md={6} xs={12}>
-            {verificationResultShow && (
-              <div className="mb-2 crop-img">
-                <img
-                  src={verificationResultShow}
-                  alt=""
-                  className="img-fluid crop-img"
-                />
-              </div>
-            )}
+          {user?.description ? (
+            ""
+          ) : (
+            <Col lg={6} md={6} xs={12}>
+              {verificationResultShow && (
+                <div className="mb-2 crop-img">
+                  <img
+                    src={verificationResultShow}
+                    alt=""
+                    className="img-fluid crop-img"
+                  />
+                </div>
+              )}
 
-            <Form.Group controlId="formFile" className="mb-2">
-              <Form.Label>Verification id</Form.Label>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                onChange={handleVerificationPhotoChange}
-              />
-            </Form.Group>
-          </Col>}
+              <Form.Group controlId="formFile" className="mb-2">
+                <Form.Label>Verification id</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={handleVerificationPhotoChange}
+                />
+              </Form.Group>
+            </Col>
+          )}
         </Row>
         <Row>
           <Col lg={6} md={6} xs={12}>
@@ -426,11 +423,11 @@ function AddProfileForm() {
               controlId="exampleForm.ControlInput1"
             >
               <Form.Control
-               defaultValue={user?.gitHubUsername}
+                defaultValue={user?.gitHubUsername}
                 type="text"
                 placeholder="Github user name"
                 {...register("gitHubUsername", {
-                  required: "This field is required",
+                  required:FormMessages.required,
                 })}
               />
               {errors.gitHubUsername ? (

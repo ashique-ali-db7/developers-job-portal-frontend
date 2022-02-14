@@ -3,5 +3,5 @@
 }
 .description h2 {
   margin-bottom: 20px;
-  color: #3fa796;
+  color: var(--main-blue);
 }

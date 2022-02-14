@@ -16,7 +16,7 @@ import githublogo2 from "./githubimage.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./SigninForm.css";
-
+import FormMessages from "../../../FormMessages/FormMessages";
 import GoogleLogin from "react-google-login";
 
 import { useSelector, useDispatch } from "react-redux"; ///To acces state.
@@ -77,10 +77,10 @@ export default function SigninForm() {
     const regex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!values.password) {
-      errors.password = "This field is required";
+      errors.password = FormMessages.required;
     }
     if (!values.email) {
-      errors.email = "This field is required";
+      errors.email = FormMessages.required;
     }
 
     return errors;
@@ -101,19 +101,16 @@ export default function SigninForm() {
         localStorage.setItem("user", JSON.stringify(data.user));
         let user = localStorage.getItem("user");
         user = JSON.parse(user);
-       
+
         dispatch(
           update_user({
             userDetails: user,
           })
         );
 
-       
         navigation("/");
       } catch (error) {
         setInvalidEmail(error.response.data.message);
-
-  
       }
     }
   }, [isSubmit]);
@@ -130,10 +127,10 @@ export default function SigninForm() {
             alignItems: "center",
           }}
         >
-          <span style={{ color: "red" }}> {invalidEmail} </span>
+          <span className="error-color"> {invalidEmail} </span>
 
           {gmailError && (
-            <span style={{ color: "red" }}>You should signup first</span>
+            <span className="error-color">You should signup first</span>
           )}
           <Box
             component="form"
@@ -152,7 +149,7 @@ export default function SigninForm() {
               onChange={handleChange}
               autoFocus
             />
-            <span style={{ color: "red" }}>{formErrors.email}</span>
+            <span className="error-color">{formErrors.email}</span>
 
             <TextField
               margin="normal"
@@ -165,14 +162,14 @@ export default function SigninForm() {
               id="password"
               autoComplete="current-password"
             />
-            <span style={{ color: "red" }}>{formErrors.password}</span>
-          
+            <span className="error-color">{formErrors.password}</span>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              style={{ backgroundColor: "#3FA796" }}
+              className="error-color"
             >
               Sign In
             </Button>

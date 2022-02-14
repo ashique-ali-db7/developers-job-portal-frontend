@@ -6,7 +6,6 @@ import Home from "./Pages/User/Home";
 import Addprofile from "./Pages/User/Addprofile";
 import EmailOtp from "./Pages/User/EmailOtp";
 import { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux"; ///To acces state.
 import { update_user } from "./Redux/user/userSlice"; ///importing action.
 import AdminSignin from "./Pages/Admin/AdminSignin";

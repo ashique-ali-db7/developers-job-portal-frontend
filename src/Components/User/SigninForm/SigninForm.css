@@ -8,3 +8,6 @@
   display: flex;
   margin-bottom: 2%;
 }
+.error-color{
+  color:var(--red);
+}

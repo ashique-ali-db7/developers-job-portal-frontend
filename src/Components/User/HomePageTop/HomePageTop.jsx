@@ -15,7 +15,7 @@ function HomePageTop() {
     <div className="flex-container">
       <Button
         style={{
-          backgroundColor: "#3FA796",
+          backgroundColor: "var(--main-blue)",
           border: "none",
           fontSize: "0.8rem",
         }}
@@ -27,7 +27,7 @@ function HomePageTop() {
       <Button
         variant="primary"
         style={{
-          backgroundColor: "#3FA796",
+          backgroundColor: "var(--main-blue)",
           border: "none",
           fontSize: "0.8rem",
         }}
@@ -43,7 +43,7 @@ function HomePageTop() {
         <Dropdown.Toggle
           variant="success"
           style={{
-            backgroundColor: "#3FA796",
+            backgroundColor: "var(--main-blue)",
             border: "none",
             fontSize: "0.8rem",
           }}

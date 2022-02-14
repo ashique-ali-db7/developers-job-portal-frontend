@@ -1,11 +1,18 @@
 import axios from "axios";
-
+let token = localStorage.getItem("token");
 const config = {
   headers: {
     "Content-type": "application/json",
   },
 };
+const config2 = {
+  headers: {
+    "Content-type": "application/json",
+    'Authorization': token
+  },
+};
 
+console.log(config2);
 export const githubVerification = (code, config) =>
   axios.post("/github", code, config);
 
@@ -45,7 +52,7 @@ console.log(githubUserName)
 }
 
 export function profileForm(formData,resultFunction) {
-  axios.post("/profilePost", formData, config).then((result)=>{
+  axios.post("/profilePost", formData, config2).then((result)=>{
 let {data} = result;
 resultFunction(data);
 
@@ -53,19 +60,7 @@ resultFunction(data);
 
 }
 
-export async function verificationImageUpload(formData2, resultFunction) {
-  let result; 
-  let { data } = await axios.post(
-    "/verificationImageUpload",
-    formData2,
-    config
-  );
 
-  console.log("ivade ethi");
-  console.log(data);
-  result = data;
-  resultFunction(result);
-}
 
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
 

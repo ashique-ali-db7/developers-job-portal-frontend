@@ -2,5 +2,5 @@
   width: 30px;
 }
 .signup-button {
-  background-color: #3fa796;
+  background-color: var(--main-blue);
 }

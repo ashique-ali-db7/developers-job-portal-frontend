@@ -92,7 +92,7 @@ function OtpForm() {
         />
         {formErrors.otpError && (
           <div style={{ textAlign: "left" }}>
-            <p style={{ fontSize: "0.8rem", color: "red" }}>
+            <p style={{ fontSize: "0.8rem", color: "var(--red)" }}>
               {formErrors.otpError}
             </p>
           </div>
@@ -100,7 +100,7 @@ function OtpForm() {
 
         {invalidOtp && (
           <div style={{ textAlign: "left" }}>
-            <p style={{ fontSize: "0.8rem", color: "red" }}>{invalidOtp}</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--red)" }}>{invalidOtp}</p>
           </div>
         )}
         {/* <Countdown date={resend.resendTime}>

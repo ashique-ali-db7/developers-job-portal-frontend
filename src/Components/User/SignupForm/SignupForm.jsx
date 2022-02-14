@@ -16,6 +16,7 @@ import githublogo from "./githubimage.png";
 import "./SignupForm.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import FormMessages from "../../../FormMessages/FormMessages"
 const axios = require("axios");
 
 const theme = createTheme();
@@ -46,14 +47,14 @@ export default function SignUp() {
     const regex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!values.name) {
-      errors.name = "This field is required";
+      errors.name = FormMessages.required;
     }
     if (!values.email) {
-      errors.email = "This field is required";
+      errors.email = FormMessages.required;
     }
 
     if (!values.password) {
-      errors.password = "This field is required";
+      errors.password = FormMessages.required;
     }
     return errors;
   };
@@ -153,7 +154,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               className="signup-button"
-              style={{ backgroundColor: "#3FA796" }}
+              style={{ backgroundColor: "var(--main-blue)" }}
             >
               SIGN Up
             </Button>

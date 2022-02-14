@@ -17,7 +17,7 @@ function Navbars(props) {
 
   return (
     <Navbar className="navabar" expand="lg">
-      <Navbar.Brand href="#home" className="ms-5" style={{ color: "#3FA796" }}>
+      <Navbar.Brand href="#home" className="ms-5" style={{ color: "var(--main-blue)" }}>
         DeveloperHub
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,9 +1,10 @@
 .form-container {
   background-color: #fff;
-  margin-top: 2%;
+  margin-top: 1%;
   margin-bottom: 5%;
   padding: 4%;
   width: 65%;
+ 
 }
 .form-class {
   background-color: #fff;
@@ -13,10 +14,10 @@
   flex-wrap: wrap;
 }
 .error-message {
-  color: red;
+  color: var(--red);
 }
 .submit-btn {
-  background-color: #3fa796;
+  background-color: var(--main-blue);
   border: none;
   width: 50%;
 }
@@ -28,4 +29,7 @@
 }
 .modal-image{
   height: 200px !important; 
+}
+.completeh3{
+  text-align: center;
 }

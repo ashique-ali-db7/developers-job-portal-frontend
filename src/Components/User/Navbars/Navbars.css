@@ -3,7 +3,7 @@
 }
 .navbar {
   background-color: white;
-  color: #3fa796;
+  color: var(--main-blue);
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;

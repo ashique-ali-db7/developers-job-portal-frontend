@@ -47,3 +47,10 @@ body {
   padding-top: 0;
   padding-bottom: 0;
 }
+:root {
+  --red: #ff0000; 
+}
+
+:root {
+  --main-blue: #4285f4; 
+}
