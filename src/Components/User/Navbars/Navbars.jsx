@@ -8,8 +8,8 @@ import { update_user } from "../../../Redux/user/userSlice"; ///importing action
 import { useState } from "react";
 function Navbars(props) {
   const dispatch = useDispatch();
-
   const navigation = useNavigate();
+
   const user = useSelector((state) => state.user.user); //in global using useSelector hook accessing color state
 
   let headerLinks = props.LoggedIn;
@@ -27,7 +27,9 @@ function Navbars(props) {
             <Nav.Link href="#home" className="">
               Jobs
             </Nav.Link>
-            <Nav.Link href="#link" className="">
+            <Nav.Link onClick={()=>{
+              navigation("/developers")
+            }}  className="">
               Developers
             </Nav.Link>
             <Nav.Link href="#link" className="">

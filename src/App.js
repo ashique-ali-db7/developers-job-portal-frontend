@@ -10,6 +10,9 @@ import { useSelector, useDispatch } from "react-redux"; ///To acces state.
 import { update_user } from "./Redux/user/userSlice"; ///importing action.
 import AdminSignin from "./Pages/Admin/AdminSignin";
 import Dashboard from "./Pages/Admin/Dashboard";
+import DeveloperListPage from "./Pages/User/DeveloperListPage";
+import {allUsers} from './Api/UserApi'
+import Profile from "./Pages/User/Profile";
 
 function App() {
   let navigation = useNavigate();
@@ -17,6 +20,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+  
     let user = localStorage.getItem("user");
     user = JSON.parse(user);
     dispatch(
@@ -39,7 +43,10 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/addprofile" element={<Addprofile />} />
         <Route path="/otp" element={<EmailOtp />} />
+        <Route path="developers" element={<DeveloperListPage/>} />
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/admin" element={<AdminSignin />} />
+         
         <Route path="/admin/dashboard" element={<Dashboard/>} />
       </Routes>
     </div>

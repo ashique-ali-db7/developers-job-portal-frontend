@@ -1,0 +1,48 @@
+.box {
+  display: flex;
+justify-content: space-between;
+}
+
+
+#header-search {
+  border-style: 0.5em solid ridge;
+  padding: 0.5%;
+  width: 45%;
+ 
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+ 
+}
+.search-button {
+  background-color: var(--main-blue);
+  padding: 0.5%;
+  border: 1.8px solid rgba(22, 22, 22, 0);
+  color: #fff;
+  
+}
+.filter-button{
+    background-color: var(--main-blue);
+  padding: 10%;
+  border: 1.8px solid rgba(22, 22, 22, 0);
+  color: #fff;  
+  font-size: 0.8rem;
+}
+.developer-card{
+  width: 100%;
+  margin-top: 4%;
+}
+.search-form-conatainer{
+  width: 100%;
+}
+.filter-div{
+  background-color: #ffff;
+  padding: 5%;
+}

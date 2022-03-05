@@ -10,7 +10,7 @@ import { emailGithubVerification, profileForm } from "../../../Api/UserApi";
 import { verificationImageUpload } from "../../../Api/UserApi";
 import { useNavigate } from "react-router-dom";
 import { update_user } from "../../../Redux/user/userSlice";
-import FormMessages from "../../../FormMessages/FormMessages"
+import FormMessages from "../../../FormMessages/FormMessages";
 
 function AddProfileForm() {
   const navigation = useNavigate();
@@ -427,7 +427,7 @@ function AddProfileForm() {
                 type="text"
                 placeholder="Github user name"
                 {...register("gitHubUsername", {
-                  required:FormMessages.required,
+                  required: FormMessages.required,
                 })}
               />
               {errors.gitHubUsername ? (

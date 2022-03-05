@@ -169,7 +169,7 @@ export default function SigninForm() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              className="error-color"
+              style={{backgroundColor:"var(--main-blue)"}}
             >
               Sign In
             </Button>

@@ -8,7 +8,7 @@ const config = {
 const config2 = {
   headers: {
     "Content-type": "application/json",
-    'Authorization': token
+    Authorization: token,
   },
 };
 
@@ -37,30 +37,39 @@ export async function emailGithubVerification(
   let { data } = await axios.get(
     "https://api.github.com/search/users?q=" + githubUserName + "in:" + email
   );
-  console.log(data);
-console.log(githubUserName)
+
   let result;
   if (data.items.length > 0) {
-    console.log("true")
     result = true;
     resultFunction(result);
   } else {
-    console.log("false");
     result = false;
     resultFunction(result);
   }
 }
 
-export function profileForm(formData,resultFunction) {
-  axios.post("/profilePost", formData, config2).then((result)=>{
-let {data} = result;
-resultFunction(data);
+export function profileForm(formData, resultFunction) {
+  console.log("hh");
+  for (let key of formData.entries()) {
+    console.log(key);
+  }
 
+  axios.post("/profilePost", formData, config2).then((result) => {
+    let { data } = result;
+    resultFunction(data);
   });
-
 }
 
+export async function allUsers(sample, numberOfUsers) {
+  let result = await axios.get("/allUsers?number=" + numberOfUsers);
+  let { data } = result;
+  sample(data);
+}
 
+export async function paginationCount(count) {
+  let { data } = await axios.get("/paginationCount");
+  count(data.count);
+}
 
 //https://api.github.com/search/users?q=ashique-ali-db7+in:ashiquealikmvkd@gmail.com
 

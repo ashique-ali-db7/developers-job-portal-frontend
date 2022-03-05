@@ -98,15 +98,7 @@ export default function SignUp() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              style={{ backgroundColor: "black" }}
-            >
-              <img src={githublogo} alt="" className="github-logo  me-auto" />{" "}
-              <span className="me-auto">Create account with github</span>
-            </Button>
+          
             <TextField
               margin="normal"
               required
@@ -118,7 +110,7 @@ export default function SignUp() {
               autoFocus
             />
             {formErrors.name && (
-              <p style={{ color: "red" }}>{formErrors.name}</p>
+              <p className="error-color">{formErrors.name}</p>
             )}
             <TextField
               margin="normal"
@@ -131,9 +123,9 @@ export default function SignUp() {
               onChange={handleChange}
               autoFocus
             />
-            {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+            {emailError && <p className="error-color">{emailError}</p>}
             {formErrors.email && (
-              <p style={{ color: "red" }}>{formErrors.email}</p>
+              <p className="error-color">{formErrors.email}</p>
             )}
             <TextField
               margin="normal"
@@ -147,7 +139,7 @@ export default function SignUp() {
               autoComplete="current-password"
             />
 
-            <p style={{ color: "red" }}> {formErrors.password}</p>
+            <p className="error-color"> {formErrors.password}</p>
             <Button
               type="submit"
               fullWidth
